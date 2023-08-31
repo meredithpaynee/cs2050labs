@@ -31,14 +31,14 @@ Node * initNode()
 }
 
 //helper function for insertion
-Node * insert(Node * dawg, int data)
+Node * insert(Node * tree, int data)
 {
     //test if tree is empty, create a new node and return the tree
-    if (dawg == NULL)
+    if (tree == NULL)
     {
-        dawg = initNode();
-        dawg->data = data;
-        return dawg;
+        tree = initNode();
+        tree->data = data;
+        return tree;
     }
 
     //else test for the value of the data and move to the left or right recursively
@@ -53,7 +53,7 @@ Node * insert(Node * dawg, int data)
 }
 
 //helper function for getMinBST
-int getMin(Node * dawg)
+int getMin(Node * tree)
 {
     //if there is nothing smaller than the root, its the smallest so return it
     if (tree->left == NULL)
