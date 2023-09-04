@@ -9,22 +9,17 @@ int makeArray(int ** array, int size)
     *array = a;
     
     //test for null
-    if(a == NULL)
+    if(a)
     {
-        return 1;
+        *array = a;
+        return 0;
     }
 
-    return 0;
+    return 1;
 }
 
 void initArray(int *array, int size)
 {
-    //test for null
-    if (array == NULL)
-    {
-        printf("ERROR");
-    }
-
     //initalize every value in the array to 0
     for (int i = 0; i < size; i++)
     {
@@ -34,11 +29,6 @@ void initArray(int *array, int size)
 
 int multiplyNegative(int *array, int size, int multiplicand)
 {
-    //test for null
-    if (array == NULL)
-    {
-        return 1;
-    }
     //set counter variable for number of negatives 
     int counter = 0;
 
@@ -60,5 +50,6 @@ int multiplyNegative(int *array, int size, int multiplicand)
 void freeArray(int **array)
 {
     //frees the pointer after malloc is called
-    free(array);
+    free(*array);
+    *array = NULL;
 }
