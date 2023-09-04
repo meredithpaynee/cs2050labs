@@ -2,27 +2,18 @@
 
 void * makeArray(int arraySize, int elementSize)
 {
-    //initialize a pointer
-    void * ptr; 
     //create an array and allocate the memory for it (int so the first value can be stored)
     int * a = malloc(arraySize * elementSize + sizeof(int));
-    //set a[0] to arraySize
-    a[0] = arraySize;
-    //increment array to make a[0] -> a[-1]
-    a++;
 
-    //set the pointer equal to a (casted to be an InventoryItem* array)
-    ptr = ((InventoryItem *)a);
+    if(array)
+    {
+        //set a[0] to arraySize
+        *(array) = arraySize;
+        //increment array to make a[0] -> a[-1]
+        a++;
+    }
 
-    //error tests
-    if (a)
-    {
-        return ptr;
-    }
-    else 
-    {
-        return NULL;
-    }
+    return array;
 }
 
 int getSize(void *array)
