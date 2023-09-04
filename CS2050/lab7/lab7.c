@@ -18,14 +18,12 @@ Stack initStack()
     //creates new stack and allocates memory for the pointer inside it
     Stack s;
     s.info = malloc(sizeof(Node));
-    //initializes all the info pointer's information
-    s.info->head = NULL;
-    s.info->listLength = 0;
 
-    //error tests
-    if(!s.info)
+    if (s.info)
     {
-        s.info = NULL;
+        //initializes all the info pointer's information
+        s.info->head = NULL;
+        s.info->listLength = 0;
     }
 
     //returns the newly initialized stack
@@ -40,44 +38,48 @@ int getSize(Stack s)
 
 void * peekStack(Stack s)
 {
-    //just returns the data from the node at the beginning of the stack
-    return s.info->head->data;
+    if (s.info->head)
+    {
+        //just returns the data from the node at the beginning of the stack
+        return s.info->head->data
+    }
+    
+    return NULL;
 }
 
 int pushStack(Stack s, void *data)
 {
-    //makes the data given point to s.info, putting it before the stack
-    data = s.info;
-    //sets the head to point to data
-    s.info->head = data;
-    //adds one to the listlength var
-    s.info->listLength += 1;
-
-    //error test
-    if (s.info->head == NULL)
+    Node * cursor = malloc(sizeof(Node));
+    if (n)
     {
-        return 1;
+        cursor->data = data;
+        cursor->next = NULL;
     }
-    return 0;
+    
+    //error test
+    if (s.info->head)
+    {
+        s.info->head = cursor;
+        s.info->listLength++;
+        return 0;
+    }
+    return 1;
 }
 
 void * popStack(Stack s)
 {
+    Node * cursor = s.info->head;
+    
     //for if the stack is empty
-    if(s.info->head == NULL)
+    if(s.info->head)
     {
-        return NULL;
+        s.info->head = s.info->head->next;
+        s.info->listLength--;
+        return freeNode(cursor);
     }
-    //creates pointer to store the popped node
-    void * temp;
-    temp = s.info->head;
-    //makes it point to the next node in line
-    s.info->head = s.info->head->next;
-    //subtracts one from the listlength
-    s.info->listLength -= 1;
 
     //returns temp
-    return temp;
+    return NULL;
 }
 
 void * getAtIndex(Stack s, int index)
@@ -103,10 +105,11 @@ void * getAtIndex(Stack s, int index)
 
 void freeStack(Stack s)
 {
-    //goes through the stack and frees everything
-    Info * ptr;
+    //goes through the stack and pops out everything
     for (ptr = s.info; ptr != NULL; ptr->head = ptr->head->next)
     {
-        free(ptr);
+        popStack(s);
     }
+
+    free(s.info);
 }
